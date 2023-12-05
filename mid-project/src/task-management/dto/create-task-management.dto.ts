@@ -21,5 +21,4 @@ export class CreateTaskManagementDto {
     @IsIn(['High', 'Medium', 'Low'], { message: 'Priority must be "High", "Medium", or "Low"' })
     priority: string;
 
-
 }

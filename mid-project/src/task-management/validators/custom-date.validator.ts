@@ -12,7 +12,7 @@ import {
         return false;
       }
   
-      // Custom validation logic for the "15-Nov-23" format
+      //  "15-Nov-23" format
       const regex = /^(0?[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{2}$/;
       return regex.test(value);
     }
