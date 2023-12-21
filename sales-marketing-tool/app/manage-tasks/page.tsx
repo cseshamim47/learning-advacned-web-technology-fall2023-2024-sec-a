@@ -29,6 +29,7 @@ const ManageTasks = () => {
     ]);
     const [showForm, setShowForm] = useState(false);
     const [buttonColor, setButtonColor] = useState(true);
+    const [taskToEdit, setTaskToEdit] = useState<Task | undefined>()
 
   
     const [buttonStyle, setButtonStyle] = useState({
@@ -43,12 +44,12 @@ const ManageTasks = () => {
         ...prevStyle,
         text: showForm ? "Add" : "Cancel",
       }));
+      setTaskToEdit(undefined);
     };
  
-    const addTask = async (task: { name: string; description: string }) => {
-        const tid = Math.floor(Math.random() * 10000) + 1;
-        const newTask = { ...task, id: tid }; 
-        setTasks([...tasks, newTask]);
+    const addTask = async (newTask: Task) => {
+        const prevTask: Task[] = tasks.filter((task)=> task.id != newTask.id)
+        setTasks([...prevTask, newTask]);
         toggleForm();
     };
 
@@ -56,12 +57,12 @@ const ManageTasks = () => {
         setTasks(tasks.filter((task) => task.id !== id));
     }
 
-    const editTask = async (id: number) => {
+    const getEditTaskId = async (id: number) => {
         if(!showForm)
-        toggleForm();
-
-        const taskToEdit = tasks.find((task) => task.id === id);
+        toggleForm()
         
+    setTaskToEdit(tasks.find((task) => task.id === id))
+    
     }
     
 
@@ -91,14 +92,14 @@ const ManageTasks = () => {
           </Grid>
 
           {showForm && (
-            <AddTask onAdd={addTask} />
+            <AddTask onAdd={addTask} taskToEdit={taskToEdit} />
           )}
 
           {tasks.length > 0 ? (
           <Tasks 
           tasks={tasks} 
           onDelete={deleteTask} 
-          onEdit={editTask}
+          onEdit={getEditTaskId}
           />): <p className="font-semibold text-center">No tasks to show</p>}
 
         </Stack>

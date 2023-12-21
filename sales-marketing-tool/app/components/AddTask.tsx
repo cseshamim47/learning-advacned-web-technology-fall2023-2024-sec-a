@@ -2,17 +2,30 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+interface Task {
+    id: number;
+    name: string;
+    description: string;
+  }
 type addTaskProps = {
-    onAdd: (task: {name: string, description: string}) => void;
+    onAdd: (task: {id: number, name: string, description: string}) => void;
+    taskToEdit: Task | undefined;
 }
 
-const AddTask = ({onAdd}: addTaskProps) => {
+const AddTask = ({onAdd, taskToEdit}: addTaskProps) => {
     
 
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
+
+    useEffect(() => {
+        if(taskToEdit)
+        {
+            setTaskName(taskToEdit.name);
+            setTaskDescription(taskToEdit.description);
+        }
+    },[taskToEdit]);
 
     const addTheTask = async () => {
         if(!taskName)
@@ -20,7 +33,9 @@ const AddTask = ({onAdd}: addTaskProps) => {
             alert("Please add a task name");
             return
         }
-        await onAdd({name: taskName, description: taskDescription});
+        let tid = Math.floor(Math.random() * 10000) + 1;
+        if(taskToEdit) tid = taskToEdit.id;
+        await onAdd({id: tid, name: taskName, description: taskDescription});
         setTaskName("");
         setTaskDescription("");
     }
