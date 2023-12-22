@@ -31,19 +31,22 @@ export class TaskManagementService {
     }
     return data;
   }
-  
-  async update(id: number, updateTaskManagementDto: UpdateTaskManagementDto) {
-    const entityToUpdate = await this.taskRepository.findOne({where: {id: id}});
-    if(entityToUpdate === null)
-    {
-      throw new NotFoundException(`Task with ID ${id} not found`);
-    }
 
-
-    this.taskRepository.merge(entityToUpdate,updateTaskManagementDto);
-    return await this.taskRepository.save(entityToUpdate);
-
+  async update(id: number, task: Partial<TaskManagement>): Promise<TaskManagement> {
+    await this.taskRepository.update(id, task);
+    return this.taskRepository.findOne({ where: { id } });
   }
+  
+  // async update(id: number, updateTaskManagementDto: UpdateTaskManagementDto) {
+  //   const entityToUpdate = await this.taskRepository.findOne({where: {id: id}});
+  //   if(entityToUpdate === null)
+  //   {
+  //     throw new NotFoundException(`Task with ID ${id} not found`);
+  //   }
+
+  //   this.taskRepository.merge(entityToUpdate,updateTaskManagementDto);
+  //   return await this.taskRepository.save(entityToUpdate);
+  // }
 
   async remove(id: number) {
     const taskToRemove = await this.taskRepository.findOne({where: {id: id}});
@@ -53,13 +56,13 @@ export class TaskManagementService {
     return await this.taskRepository.remove(taskToRemove);
   }
 
-  async findByPriority(priority: string): Promise<TaskManagement[]> {
-    const tasks = await this.taskRepository.find({ where: { priority: priority } });
+  // async findByPriority(priority: string): Promise<TaskManagement[]> {
+  //   const tasks = await this.taskRepository.find({ where: { priority: priority } });
 
-    if (!tasks.length) {
-      throw new NotFoundException(`No tasks found with priority: ${priority}`);
-    }
+  //   if (!tasks.length) {
+  //     throw new NotFoundException(`No tasks found with priority: ${priority}`);
+  //   }
 
-    return tasks;
-  }
+  //   return tasks;
+  // }
 }

@@ -4,17 +4,17 @@ import { IsCustomDateFormatConstraint } from '../validators/custom-date.validato
 export class UpdateTaskManagementDto  {
 
     @IsOptional() @IsNotEmpty() @IsString()
-    taskName?: string;
+    name?: string;
 
     @IsOptional() @IsNotEmpty() @IsString()
-    taskDesc?: string;
+    description?: string;
     
-    @IsOptional() @IsNotEmpty() @IsString()
-    @Validate(IsCustomDateFormatConstraint)
-    dueDate?: string;
+    // @IsOptional() @IsNotEmpty() @IsString()
+    // @Validate(IsCustomDateFormatConstraint)
+    // dueDate?: string;
 
-    @IsOptional() @IsNotEmpty() @IsString()
-    @IsIn(['High', 'Medium', 'Low'], { message: 'Priority must be "High", "Medium", or "Low"' })
-    priority: string;
+    // @IsOptional() @IsNotEmpty() @IsString()
+    // @IsIn(['High', 'Medium', 'Low'], { message: 'Priority must be "High", "Medium", or "Low"' })
+    // priority: string;
     
 } 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Put } from '@nestjs/common';
 import { TaskManagementService } from './task-management.service';
 import { CreateTaskManagementDto } from './dto/create-task-management.dto';
 import { UpdateTaskManagementDto } from './dto/update-task-management.dto';
@@ -23,9 +23,8 @@ export class TaskManagementController {
     return data;
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateTaskManagementDto: UpdateTaskManagementDto) {
-    
     return this.taskManagementService.update(+id, updateTaskManagementDto);
   }
 
@@ -42,16 +41,16 @@ export class TaskManagementController {
     }
   }
 
-  @Get('priority/:priority')
-  async findByPriority(@Param('priority') priority: string) {
-    try {
-      const tasks = await this.taskManagementService.findByPriority(priority);
-      return { tasks };
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw new NotFoundException(error.message);
-      }
-      throw error;  
-    } 
-  }
+  // @Get('priority/:priority')
+  // async findByPriority(@Param('priority') priority: string) {
+  //   try {
+  //     const tasks = await this.taskManagementService.findByPriority(priority);
+  //     return { tasks };
+  //   } catch (error) {
+  //     if (error instanceof NotFoundException) {
+  //       throw new NotFoundException(error.message);
+  //     }
+  //     throw error;  
+  //   } 
+  // }
 }

@@ -4,9 +4,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import Tasks from "../components/Tasks";
 import AddTask from "../components/AddTask";
+import axios from "axios";
+import { render } from "react-dom";
 
 interface Task {
   id: number;
@@ -15,22 +17,21 @@ interface Task {
 }
 
 const ManageTasks = () => {
-    const [tasks, setTasks] = useState<Task[]>([
-        {
-            id: 1,
-            name: "Task 1",
-            description: "This is task 1",
-        },
-        {
-            id: 2,
-            name: "Task 2",
-            description: "This is task 2",
-        },
-    ]);
-    const [showForm, setShowForm] = useState(false);
-    const [buttonColor, setButtonColor] = useState(true);
-    const [taskToEdit, setTaskToEdit] = useState<Task | undefined>()
-
+  const baseURL = "http://localhost:8888/task-management";
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [buttonColor, setButtonColor] = useState(true);
+  const [taskToEdit, setTaskToEdit] = useState<Task | undefined>()
+    
+    // const data = await res.json()
+    useEffect(() => {
+      const renderTasks = async () => {
+        axios.get(baseURL).then((response) => {
+          setTasks(response.data);
+        });
+      }
+      renderTasks();
+    },[]);
   
     const [buttonStyle, setButtonStyle] = useState({
       color: "success",
@@ -48,13 +49,22 @@ const ManageTasks = () => {
     };
  
     const addTask = async (newTask: Task) => {
-        const prevTask: Task[] = tasks.filter((task)=> task.id != newTask.id)
-        setTasks([...prevTask, newTask]);
+        if(tasks.find((task) => task.id === newTask.id)) {
+            setTasks(tasks.map((task) => task.id === newTask.id ? newTask : task));    
+        }else
+        {
+            setTasks([...tasks, newTask]);
+        }
         toggleForm();
     };
 
     const deleteTask = async (id: number) => {
-        setTasks(tasks.filter((task) => task.id !== id));
+        axios
+        .delete(`${baseURL}/${id}`)
+        .then(() => {
+          alert("Post deleted!");
+          setTasks(tasks.filter((task) => task.id !== id));
+        });
     }
 
     const getEditTaskId = async (id: number) => {

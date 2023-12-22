@@ -12,7 +12,7 @@ const ormConfig: PostgresConnectionOptions = {
   password: 'admin',
   entities: [TaskManagement, RecipientsManagement, Campaign],
   synchronize: true,
-  logging: true,
+  // logging: true,
   schema: 'public',
 };
 

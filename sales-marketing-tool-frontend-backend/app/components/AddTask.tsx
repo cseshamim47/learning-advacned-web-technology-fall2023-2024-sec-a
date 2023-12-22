@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
+import axios from 'axios';
+import { describe } from "node:test";
 interface Task {
     id: number;
     name: string;
@@ -15,6 +17,7 @@ type addTaskProps = {
 
 const AddTask = ({onAdd, taskToEdit}: addTaskProps) => {
     
+    const baseURL = "http://localhost:8888/task-management";
 
     const [taskName, setTaskName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -33,9 +36,27 @@ const AddTask = ({onAdd, taskToEdit}: addTaskProps) => {
             alert("Please add a task name");
             return
         }
-        let tid = Math.floor(Math.random() * 10000) + 1;
-        if(taskToEdit) tid = taskToEdit.id;
-        await onAdd({id: tid, name: taskName, description: taskDescription});
+        if(taskToEdit) 
+        {
+            axios
+            .put(`${baseURL}/${taskToEdit.id}`, {
+                name: taskName,
+                description: taskDescription,
+            })
+            .then((response) => {
+                onAdd({id: response.data.id , name: taskName, description: taskDescription});
+            });
+        }else
+        {
+            axios
+            .post(baseURL, {
+                name: taskName,
+                description: taskDescription,
+            })
+            .then((response) => {
+                onAdd({id: response.data.id , name: taskName, description: taskDescription});
+            });
+        }
         setTaskName("");
         setTaskDescription("");
     }

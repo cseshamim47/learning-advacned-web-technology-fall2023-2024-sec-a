@@ -6,15 +6,15 @@ export class TaskManagement {
     id: number;
 
     @Column()
-    taskName: string;
+    name: string;
     
     @Column()
-    taskDesc: string;
+    description: string;
     
-    @Column()   
-    dueDate: string;
+    // @Column()   
+    // dueDate: string;
 
-    @Column()   
-    priority: string;
+    // @Column()   
+    // priority: string;
 
 }
