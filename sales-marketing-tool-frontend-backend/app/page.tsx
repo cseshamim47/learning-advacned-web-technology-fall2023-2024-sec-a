@@ -1,17 +1,17 @@
+
 import Image from 'next/image'
 import Button from '@mui/material/Button';
+import { Dropdown } from 'flowbite-react';
 
 export default function Home() {
   return (
     <main>
-      <h1 className="font-roboto text-3xl font-bold underline">
-      Hello world!</h1>
-
-      <h1 className="font-popns text-3xl font-extralight underline">
-      Hello world!
-
-      <Button variant="contained">Hello world</Button>
-    </h1>
+      <Dropdown label="Dropdown button" dismissOnClick={false}>
+      <Dropdown.Item>Dashboard</Dropdown.Item>
+      <Dropdown.Item>Settings</Dropdown.Item>
+      <Dropdown.Item>Earnings</Dropdown.Item>
+      <Dropdown.Item>Sign out</Dropdown.Item>
+    </Dropdown>
     </main>
   )
 }

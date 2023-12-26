@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from 'react';
-import Tasks from "../components/Tasks";
-import AddTask from "../components/AddTask";
+import Tasks from "../components/Task/Tasks";
+import AddTask from "../components/Task/AddTask";
 import axios from "axios";
 import { render } from "react-dom";
 
