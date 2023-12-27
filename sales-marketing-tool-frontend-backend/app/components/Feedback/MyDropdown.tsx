@@ -3,7 +3,7 @@ import { Dropdown } from "flowbite-react"
 
 const MyDropdown = () => {
   return (
-    <Dropdown label="Dropdown button">
+    <Dropdown label="Filter">
                     <Dropdown.Item>
                         All
                     </Dropdown.Item>

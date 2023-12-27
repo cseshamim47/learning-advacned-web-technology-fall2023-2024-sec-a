@@ -1,4 +1,5 @@
 import { Campaign } from 'src/campaign/entities/campaign.entity';
+import { Feedback } from 'src/feedbacks/entities/feedback.entity';
 import { RecipientsManagement } from 'src/recipients-management/entities/recipients-management.entity';
 import { TaskManagement } from 'src/task-management/entities/task-management.entity';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
@@ -10,7 +11,7 @@ const ormConfig: PostgresConnectionOptions = {
   port: 5432,
   username: 'postgres',
   password: 'admin',
-  entities: [TaskManagement, RecipientsManagement, Campaign],
+  entities: [TaskManagement, RecipientsManagement, Campaign, Feedback],
   synchronize: true,
   // logging: true,
   schema: 'public',

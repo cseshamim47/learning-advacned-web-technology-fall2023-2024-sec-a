@@ -24,7 +24,7 @@ export class TaskManagementService {
   async findOne(id: number): Promise<TaskManagement | undefined> {
     const data = await this.taskRepository.findOne({where: {id: id}});
 
-    console.log(data);
+    // console.log(data);
     
     if (data === null) {
       throw new NotFoundException(`Task with ID ${id} not found`);

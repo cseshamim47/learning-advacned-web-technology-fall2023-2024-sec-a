@@ -13,12 +13,33 @@ import { Dropdown } from "flowbite-react";
 import MyDropdown from '@/app/components/Feedback/MyDropdown';
 import Feedbacks from '@/app/components/Feedback/Feedbacks';
 import { useFeedback } from '@/app/context/FeedbackContext';
+import { Suspense, useEffect } from 'react';
+import axios from 'axios';
+import useSWR from 'swr'
+import { Skeleton } from '@mui/material';
+
+const url = "http://localhost:8888/feedbacks"
+const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 
 const ShowFeedback = () => {
     const { feedbacks, SetFeedback } = useFeedback();
-  return (
+    const baseURL = "http://localhost:8888/feedbacks";
     
+
+    // const { data } = useSWR('feasdfasdf',fetcher)
+    // console.log(data);
+    
+    // useEffect(() => {
+    //     const renderFeedbacks = async () => {
+    //         axios.get(baseURL).then((response) => {
+    //             SetFeedback(response.data)
+    //         })
+    //     }
+    //     renderFeedbacks();
+    // },[]);
+
+  return (
         <Grid container spacing={2} className=''    >
             <Grid xs={12} className='bg-green-300'>
                 <h1 className="font-bold text-4xl text-center">View All Feedback</h1>
@@ -30,16 +51,7 @@ const ShowFeedback = () => {
 
                 </Box>
             </Grid>
-            <Grid xs={12}>
-                <Box display="flex" justifyContent="center">
-                    <Button variant="contained" color='success'
-                        onClick={() => {
-                            SetFeedback(2,"shakil","another title", "another message", 5);
-                            console.log(feedbacks);
-                        }}
-                    >Submit</Button>
-                </Box>
-            </Grid>
+           
             
             <Feedbacks />
         </Grid>

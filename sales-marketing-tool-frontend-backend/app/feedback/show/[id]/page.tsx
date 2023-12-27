@@ -15,6 +15,8 @@ import Feedbacks from '@/app/components/Feedback/Feedbacks';
 import { useFeedback } from '@/app/context/FeedbackContext';
 import FeedbackRatingReadOnly from '@/app/components/Feedback/FeedbackRatingReadOnly';
 import { useRouter } from 'next/navigation';
+import useSWR from "swr";
+import { Spinner } from "flowbite-react";
 
 
 const ShowFeedback = ({ params }: { params: { id: number } }) => {
@@ -30,7 +32,7 @@ const ShowFeedback = ({ params }: { params: { id: number } }) => {
             </Grid>
             <Grid xs={12}>
                 <Box display="flex" justifyContent="flex-start">
-                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={()=>router.back()}>Back</a>
+                <a href="#" className="font-bold text-green-600 hover:underline" onClick={()=>router.back()}>Back</a>
                 </Box>
             </Grid>
 
@@ -38,11 +40,18 @@ const ShowFeedback = ({ params }: { params: { id: number } }) => {
             {targetFeedback && (
                 <div className="bg-green-200 rounded shadow-inner p-2 mb-2 hover:bg-green-300 hover:cursor-pointer">
                     <div className="flex justify-between">
-                        <p className="text-lg font-bold">{targetFeedback.title}</p>
-                        <FeedbackRatingReadOnly rating={targetFeedback.rating} />
+                    <div>
+                    <p className="text-lg font-bold">{targetFeedback.title}</p>
+                    <div className="flex flex-start text-sm text-gray-500">
+                        <p>{targetFeedback.username}</p>
+                        <p className="mx-2">|</p>
+                        <p>{String(targetFeedback.date)}</p>
                     </div>
-                    <p>{targetFeedback.description}</p>
-                    <p className="text-sm text-gray-500">{targetFeedback.username}</p>
+                    
+                    </div>
+                    <FeedbackRatingReadOnly rating={targetFeedback.rating} />
+                </div>
+                <p>{targetFeedback.description}</p>
                 </div>
                 
             )}

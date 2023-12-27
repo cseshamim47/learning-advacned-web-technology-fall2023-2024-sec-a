@@ -1,30 +1,55 @@
 import { useFeedback } from "@/app/context/FeedbackContext";
-import { Box, Button, Grid, Paper, Stack, styled } from "@mui/material";
+import { Box, Button, Grid, Paper, Skeleton, Stack, styled } from "@mui/material";
 import FeedbackRatingReadOnly from "./FeedbackRatingReadOnly";
 import { useRouter } from 'next/navigation'
+import { useEffect } from "react";
+import axios from "axios";
+import useSWR from "swr";
+import { Spinner } from "flowbite-react";
 
+const url = 'http://localhost:8888/feedbacks'
+const fetcher = async() => {
+    const response = await fetch(url)
+    const data = response.json()
+    return data
+}
 
 const Feedbacks = () => {
     const router = useRouter()
 
+    const { data, error } = useSWR('http://localhost:8888/feedbacks', fetcher)
+
+    // console.log(data);
+    if(error) return 'An error has occured'
+    if(!data)
+    return (
+    <div className="w-full text-center mt-4">
+    <Spinner color="failure" aria-label="Center-aligned Extra large spinner example" size="xl" />
+    </div>)
+
+    if(data.length === 0) return 'No feedbacks found'
+
     const { feedbacks, SetFeedback } = useFeedback();
+    SetFeedback(data);
+
+
   return (
     <div className="w-full">
-        {feedbacks.map((feedback) => (
-            <div key={feedback.id} onClick={()=>router.push(`/feedback/show/${feedback.id}`)} className="bg-green-200 rounded shadow-inner p-2 mb-2 hover:bg-green-300 hover:cursor-pointer">
+        {data.map((feedback: any) => (
+            <div key={feedback.id} onClick={()=>router.push(`/feedback/show/${feedback.id}`)} className="bg-green-200 rounded shadow-inner p-2 mb-2 hover:bg-green-300 hover:cursor-pointer hover:scale-105 transition duration-500">
                 <div className="flex justify-between">
                     <div>
                     <p className="text-lg font-bold">{feedback.title}</p>
                     <div className="flex flex-start text-sm text-gray-500">
-                        <p>{feedback.username} {" | "}</p>
-                        <p>{" "} {feedback.date}</p>
-
+                        <p>{feedback.username}</p>
+                        <p className="mx-2">|</p>
+                        <p>{String(feedback.date)}</p>
                     </div>
                     
                     </div>
                     <FeedbackRatingReadOnly rating={feedback.rating} />
                 </div>
-                <p>{feedback.description.slice(0,150)} {" "}...</p>
+                {feedback.description.length > 150 ? <p>{feedback.description.slice(0,150)}....Click to see more</p> : <p>{feedback.description}</p>}
             </div>
             
         ))}
