@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Put } from '@nestjs/common';
 import { RecipientsManagementService } from './recipients-management.service';
 import { CreateRecipientsManagementDto } from './dto/create-recipients-management.dto';
 import { UpdateRecipientsManagementDto } from './dto/update-recipients-management.dto';
@@ -25,7 +25,7 @@ export class RecipientsManagementController {
     return data;
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateRecipientsManagementDto: UpdateRecipientsManagementDto) {
     
     return this.recipientsManagementService.update(+id, updateRecipientsManagementDto);

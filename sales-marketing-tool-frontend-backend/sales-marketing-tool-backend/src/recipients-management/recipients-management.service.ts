@@ -20,7 +20,7 @@ export class RecipientsManagementService {
     const data = await this.repository.create(createRecipientsManagementDto); 
     return this.repository.save(data);
   }
-
+  
   async findAll() {
     return this.repository.find();
   }

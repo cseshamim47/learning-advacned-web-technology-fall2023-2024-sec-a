@@ -24,13 +24,13 @@ import { render } from 'react-dom';
 
 
 export default function FeedbackForm() {
-    const baseURL = "http://localhost:8888/feedbacks";
     let { feedbacks, SetFeedback, feedbackRating, SetFeedbackRating} = useFeedback();
     let [title, setTitle] = useState("");
     let [description, setDescription] = useState("");
     let [feedbackSent, setFeedbackSent] = useState(false);
     let today = new Date().toLocaleDateString('en-GB');
-
+    
+    const baseURL = "http://localhost:8888/feedbacks";
     let saveFeedback = () => {
         if(feedbackRating === 0 || title === "" || description === ""){
             alert("Please fill all the fields")

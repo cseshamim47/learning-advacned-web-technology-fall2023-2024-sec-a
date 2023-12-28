@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import useSWR from "swr";
 import { Spinner } from "flowbite-react";
+import MySpinner from "../utils/MySpinner";
 
 const url = 'http://localhost:8888/feedbacks'
 const fetcher = async() => {
@@ -22,10 +23,7 @@ const Feedbacks = () => {
     // console.log(data);
     if(error) return 'An error has occured'
     if(!data)
-    return (
-    <div className="w-full text-center mt-4">
-    <Spinner color="failure" aria-label="Center-aligned Extra large spinner example" size="xl" />
-    </div>)
+    return (<MySpinner />)
 
     if(data.length === 0) return 'No feedbacks found'
 

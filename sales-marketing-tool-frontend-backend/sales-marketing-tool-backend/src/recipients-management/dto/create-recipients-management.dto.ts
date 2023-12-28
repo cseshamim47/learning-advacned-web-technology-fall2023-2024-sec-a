@@ -3,10 +3,14 @@ import { IsDateString, IsIn, IsNotEmpty, IsString, Validate } from "class-valida
 export class CreateRecipientsManagementDto {
     @IsNotEmpty()
     @IsString()
-    recipients: string;
+    email: string;
     
     @IsNotEmpty()
     @IsString()
     category: string;
+
+    @IsNotEmpty()
+    @IsString()
+    name: string;
     
 }

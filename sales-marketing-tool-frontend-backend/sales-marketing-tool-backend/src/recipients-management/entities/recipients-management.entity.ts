@@ -6,8 +6,11 @@ export class RecipientsManagement {
     id: number;
 
     @Column()
-    recipients: string;
+    email: string;
     
     @Column()
     category: string;
+
+    @Column()
+    name: string;
 }

@@ -63,23 +63,16 @@ const AddTask = ({onAdd, taskToEdit}: addTaskProps) => {
 
   return (
     <>
-                <TextField 
-                id="outlined-basic" 
-                label="Task Name" 
-                variant="outlined" 
+                
+                <input type="text" className="rounded p-4" placeholder="Task Name" 
                 value={taskName}
                 onChange={(e) => setTaskName(e.target.value)}
                 />
-
-                <TextField
-                id="outlined-basic"
-                label="Task Desc"
-                variant="outlined"
-                multiline
+                <textarea className="rounded p-4" placeholder="Task Description" min-rows="5"
                 value={taskDescription}
                 onChange={(e) => setTaskDescription(e.target.value)}
-                maxRows={4}
-                />
+                >
+                </textarea>
 
                 <Button
                 variant="contained"
