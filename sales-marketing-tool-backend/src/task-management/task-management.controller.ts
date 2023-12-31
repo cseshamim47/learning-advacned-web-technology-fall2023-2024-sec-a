@@ -15,6 +15,7 @@ export class TaskManagementController {
   @Get()
   findAll() {
     return this.taskManagementService.findAll();
+    
   }
 
   @Get(':id')

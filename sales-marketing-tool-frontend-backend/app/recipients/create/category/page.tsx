@@ -1,12 +1,10 @@
 'use client'
 
-import { Button, TextInput, Textarea } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import Title from '../../../components/Recipients/Title';
-import { useState } from 'react';
-import { Grid } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import { useRecipients } from '@/app/context/RecipientsContext';
-const page = () => {
+const Category = () => {
     const router = useRouter()
     const {category, SetCategory, name, SetName} = useRecipients();
     const handleSave = (e:any) => {
@@ -19,7 +17,7 @@ const page = () => {
   return (
     <>
       <Title title="Add Some Catagory"/>
-
+      
       <div className="grid grid-cols-2 m-10 gap-3">
           <input type="text" className='rounded col-span-2 bg-green-200' placeholder="Name the list" required onChange={(e)=>SetName(e.target.value)} value={name && name || ''} />
           <textarea className='rounded col-span-2 bg-green-200' id="comment" placeholder="Drop recipients catagory list here. **Must be comma separated values.." required rows={8} 
@@ -29,10 +27,8 @@ const page = () => {
           <Button  color="success" onClick={handleSave}>Save</Button>
         
       </div>
-    
-        
 
     </>
   )
 }
-export default page
+export default Category

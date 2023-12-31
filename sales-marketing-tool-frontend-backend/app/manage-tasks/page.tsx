@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import Tasks from "../components/Task/Tasks";
 import AddTask from "../components/Task/AddTask";
 import axios from "axios";
-import { render } from "react-dom";
 
 interface Task {
   id: number;

@@ -17,8 +17,10 @@ const fetcher = async() => {
 
 const Feedbacks = () => {
     const router = useRouter()
-
+    
     const { data, error } = useSWR('http://localhost:8888/feedbacks', fetcher)
+    const { feedbacks, SetFeedback } = useFeedback();
+    SetFeedback(data);
 
     // console.log(data);
     if(error) return 'An error has occured'
@@ -27,8 +29,6 @@ const Feedbacks = () => {
 
     if(data.length === 0) return 'No feedbacks found'
 
-    const { feedbacks, SetFeedback } = useFeedback();
-    SetFeedback(data);
 
 
   return (
